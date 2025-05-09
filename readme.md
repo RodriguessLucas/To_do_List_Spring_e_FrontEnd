@@ -1,6 +1,6 @@
 # To do List
 
-### Linguagens:
+### Linguagens e ferramentass usadas:
 - #### BackEnd: Java(Spring)
 - #### FrontEnd: Html, Css e JavaScript
 - #### Persistência de dados: Postgres SQL
