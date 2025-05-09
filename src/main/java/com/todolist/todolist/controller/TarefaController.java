@@ -18,7 +18,7 @@ public class TarefaController {
     }
 
     @GetMapping
-    public List<Tarefa> listarTarefasDia(LocalDate dia){
+    public List<Tarefa> listarTarefasDia(@RequestParam("dia") LocalDate dia){
         return tarefaService.listarTarefaDodia(dia);
     }
 
