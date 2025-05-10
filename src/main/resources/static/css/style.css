@@ -1,0 +1,61 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 10em;
+    max-height: auto;
+}
+
+h1{
+    font-size: 6rem;
+}
+
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+#espacoToDo{
+    width: 100em;
+    padding: 0.2em 5em 5em 5em;
+    height: auto;
+   
+}
+
+
+#espacoData{
+    width: auto;
+    min-height: 2em;
+    max-height: auto ;
+    padding: 0em 0em 0.3em 3em;
+}
+
+#dataInput{
+    height: 2.5em;
+    font-size: large;
+}
+
+#espacoListaToDo{
+    padding: 1em 4em 1em 4em;
+    border-color: black;
+    border: 3px solid;
+    border-radius: 1em;
+    min-height: 10em;
+    max-height: 35em;
+
+}
+
+
+
+
