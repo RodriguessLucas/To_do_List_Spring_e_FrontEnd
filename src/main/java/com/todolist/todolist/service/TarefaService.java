@@ -1,6 +1,6 @@
 package com.todolist.todolist.service;
 
-import com.todolist.todolist.entity.Tarefa;
+import com.todolist.todolist.model.entity.Tarefa;
 import com.todolist.todolist.repositoy.TarefaRepository;
 import org.springframework.stereotype.Service;
 

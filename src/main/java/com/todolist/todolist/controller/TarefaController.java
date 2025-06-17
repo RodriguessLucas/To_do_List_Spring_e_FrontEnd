@@ -1,6 +1,6 @@
 package com.todolist.todolist.controller;
 
-import com.todolist.todolist.entity.Tarefa;
+import com.todolist.todolist.model.entity.Tarefa;
 import com.todolist.todolist.service.TarefaService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;

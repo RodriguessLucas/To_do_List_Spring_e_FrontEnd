@@ -1,6 +1,6 @@
 package com.todolist.todolist.repositoy;
 
-import com.todolist.todolist.entity.Tarefa;
+import com.todolist.todolist.model.entity.Tarefa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
