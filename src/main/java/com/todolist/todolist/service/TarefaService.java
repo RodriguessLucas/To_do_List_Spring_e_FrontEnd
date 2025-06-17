@@ -1,5 +1,7 @@
 package com.todolist.todolist.service;
 
+import com.todolist.todolist.model.dto.RequestTarefaDTO;
+import com.todolist.todolist.model.dto.ResponseTarefaDTO;
 import com.todolist.todolist.model.entity.Tarefa;
 import com.todolist.todolist.repositoy.TarefaRepository;
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,6 +20,19 @@ public class TarefaService {
         this.tarefaRepository = tarefaRepository;
     }
 
+
+    //Converter DTO para entity
+    public Tarefa toEntity(RequestTarefaDTO requestTarefaDTO) {
+        Tarefa tarefa = new Tarefa();
+        tarefa.setNomeTarefa(requestTarefaDTO.nomeTarefa());
+        tarefa.setDescricaoTarefa(requestTarefaDTO.descricaoTarefa());
+        tarefa.setStatus(requestTarefaDTO.status());
+        tarefa.setDataTarefa(requestTarefaDTO.dataTarefa());
+        tarefa.setHoraTarefa(requestTarefaDTO.horaTarefa());
+        return tarefa;
+    }
+
+
     //CRUD DAS TAREFAS
 
     //Criar
@@ -25,9 +41,19 @@ public class TarefaService {
     }
 
     //Carregar tarefas do dia
-    public List<Tarefa> listarTarefaDodia(LocalDate data){
-        List<Tarefa> aux = tarefaRepository.findByDataTarefa(data);
-        return aux.stream().sorted(Comparator.comparing(Tarefa::getHoraTarefa)).collect(Collectors.toList());
+    public List<ResponseTarefaDTO> listarTarefaDodia(LocalDate data){
+        return tarefaRepository.findByDataTarefa(data)
+                .stream()
+                .sorted(Comparator.comparing(Tarefa::getHoraTarefa))
+                .map(tarefa -> new ResponseTarefaDTO(
+                        tarefa.getId(),
+                        tarefa.getNomeTarefa(),
+                        tarefa.getDescricaoTarefa(),
+                        tarefa.isStatus(),
+                        tarefa.getDataTarefa(),
+                        tarefa.getHoraTarefa()
+                ))
+                .collect(Collectors.toList());
     }
 
     //Carregar todas as tarefas // sem motivo de uso
