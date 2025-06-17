@@ -1,5 +1,7 @@
 package com.todolist.todolist.controller;
 
+import com.todolist.todolist.model.dto.RequestTarefaDTO;
+import com.todolist.todolist.model.dto.ResponseTarefaDTO;
 import com.todolist.todolist.model.entity.Tarefa;
 import com.todolist.todolist.service.TarefaService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,7 +21,7 @@ public class TarefaController {
     }
 
     @GetMapping
-    public List<Tarefa> listarTarefasDia(@RequestParam("dia") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dia){
+    public List<ResponseTarefaDTO> listarTarefasDia(@RequestParam("dia") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dia){
         return tarefaService.listarTarefaDodia(dia);
     }
 
@@ -29,7 +31,7 @@ public class TarefaController {
     }
 
     @PostMapping("/{id}")
-    public Tarefa atualizarTarefa(@PathVariable Long id, @RequestBody Tarefa tarefa){
+    public ResponseTarefaDTO atualizarTarefa(@PathVariable Long id, @RequestBody RequestTarefaDTO tarefa){
         return tarefaService.atualizarTarefa(id, tarefa);
     }
 
