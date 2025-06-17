@@ -56,20 +56,24 @@ public class TarefaService {
                 .collect(Collectors.toList());
     }
 
-    //Carregar todas as tarefas // sem motivo de uso
-    public List<Tarefa> listarTodasTarefa(){
-        return tarefaRepository.findAll();
-    }
-
     //Atualizar tarefa
-    public Tarefa atualizarTarefa(Long id,Tarefa tarefa){
+    public ResponseTarefaDTO atualizarTarefa(Long id, RequestTarefaDTO tarefa) {
         Tarefa tarefaAtual = tarefaRepository.findById(id).get();
-        tarefaAtual.setNomeTarefa(tarefa.getNomeTarefa());
-        tarefaAtual.setDescricaoTarefa(tarefa.getDescricaoTarefa());
-        tarefaAtual.setDataTarefa(tarefa.getDataTarefa());
-        tarefaAtual.setHoraTarefa(tarefa.getHoraTarefa());
-        tarefaAtual.setStatus(tarefa.isStatus());
-        return tarefaRepository.save(tarefaAtual);
+        tarefaAtual.setNomeTarefa(tarefa.nomeTarefa());
+        tarefaAtual.setDescricaoTarefa(tarefa.descricaoTarefa());
+        tarefaAtual.setDataTarefa(tarefa.dataTarefa());
+        tarefaAtual.setHoraTarefa(tarefa.horaTarefa());
+        tarefaAtual.setStatus(tarefa.status());
+        tarefaRepository.save(tarefaAtual);
+
+       return new ResponseTarefaDTO(
+               id,
+               tarefa.nomeTarefa(),
+               tarefa.descricaoTarefa(),
+               tarefa.status(),
+               tarefa.dataTarefa(),
+               tarefa.horaTarefa()
+       );
     }
 
     //Deletar
