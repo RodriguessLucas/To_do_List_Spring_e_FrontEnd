@@ -2,6 +2,7 @@ package com.todolist.todolist.controller;
 
 import com.todolist.todolist.entity.Tarefa;
 import com.todolist.todolist.service.TarefaService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ public class TarefaController {
     }
 
     @GetMapping
-    public List<Tarefa> listarTarefasDia(@RequestParam("dia") LocalDate dia){
+    public List<Tarefa> listarTarefasDia(@RequestParam("dia") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dia){
         return tarefaService.listarTarefaDodia(dia);
     }
 

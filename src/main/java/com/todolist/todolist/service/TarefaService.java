@@ -30,7 +30,6 @@ public class TarefaService {
         return aux.stream().sorted(Comparator.comparing(Tarefa::getHoraTarefa)).collect(Collectors.toList());
     }
 
-
     //Carregar todas as tarefas // sem motivo de uso
     public List<Tarefa> listarTodasTarefa(){
         return tarefaRepository.findAll();
@@ -47,7 +46,6 @@ public class TarefaService {
         return tarefaRepository.save(tarefaAtual);
     }
 
-
     //Deletar
     public void deletarTarefa(Long id){
         tarefaRepository.deleteById(id);
@@ -60,8 +58,6 @@ public class TarefaService {
         tarefaRepository.save(tarefaAtual);
         return tarefaAtual.isStatus();
     }
-
-
 
 
 }
