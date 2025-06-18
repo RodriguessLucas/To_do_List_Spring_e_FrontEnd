@@ -1,6 +1,7 @@
 package com.todolist.todolist.service;
 
 import com.todolist.todolist.exceptions.ConflitoTarefaException;
+import com.todolist.todolist.exceptions.TarefaNotFoundException;
 import com.todolist.todolist.model.dto.RequestTarefaDTO;
 import com.todolist.todolist.model.dto.ResponseTarefaDTO;
 import com.todolist.todolist.model.entity.Tarefa;
@@ -62,6 +63,10 @@ public class TarefaService {
 
     //Atualizar tarefa
     public ResponseTarefaDTO atualizarTarefa(Long id, RequestTarefaDTO tarefa) {
+        if(tarefaRepository.existsByDataTarefaAndHoraTarefa(tarefa.dataTarefa(), tarefa.horaTarefa())) {
+            throw new ConflitoTarefaException("Já existe tarefa agendada na " +  tarefa.dataTarefa() + " " +  tarefa.horaTarefa());
+        }
+
         Tarefa tarefaAtual = tarefaRepository.findById(id).get();
         tarefaAtual.setNomeTarefa(tarefa.nomeTarefa());
         tarefaAtual.setDescricaoTarefa(tarefa.descricaoTarefa());
@@ -82,7 +87,12 @@ public class TarefaService {
 
     //Deletar
     public void deletarTarefa(Long id){
-        tarefaRepository.deleteById(id);
+        try {
+            tarefaRepository.deleteById(id);
+        }
+        catch (IllegalArgumentException e){
+            throw new TarefaNotFoundException("Tarefa com id " + id + "não foi encontrado");
+        }
     }
 
     //Atualizar status tarefa
