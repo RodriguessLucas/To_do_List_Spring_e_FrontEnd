@@ -1,5 +1,6 @@
 package com.todolist.todolist.service;
 
+import com.todolist.todolist.exceptions.ConflitoTarefaException;
 import com.todolist.todolist.model.dto.RequestTarefaDTO;
 import com.todolist.todolist.model.dto.ResponseTarefaDTO;
 import com.todolist.todolist.model.entity.Tarefa;
@@ -35,7 +36,11 @@ public class TarefaService {
     //CRUD DAS TAREFAS
 
     //Criar
-    public Tarefa criarTarefa(Tarefa tarefa){
+    public Tarefa criarTarefa(RequestTarefaDTO requestTarefaDTO) {
+        if(tarefaRepository.existsByDataTarefaAndHoraTarefa(requestTarefaDTO.dataTarefa(), requestTarefaDTO.horaTarefa())) {
+            throw new ConflitoTarefaException("Já existe tarefa agendada na " +  requestTarefaDTO.dataTarefa() + " " +  requestTarefaDTO.horaTarefa());
+        }
+        Tarefa tarefa = toEntity(requestTarefaDTO);
         return tarefaRepository.save(tarefa);
     }
 

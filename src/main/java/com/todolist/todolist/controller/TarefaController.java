@@ -26,8 +26,8 @@ public class TarefaController {
     }
 
     @PostMapping
-    public Tarefa salvarTarefa(@RequestBody Tarefa tarefa){
-        return tarefaService.criarTarefa(tarefa);
+    public Tarefa salvarTarefa(@RequestBody RequestTarefaDTO requestTarefaDTO){
+        return tarefaService.criarTarefa( requestTarefaDTO);
     }
 
     @PostMapping("/{id}")
