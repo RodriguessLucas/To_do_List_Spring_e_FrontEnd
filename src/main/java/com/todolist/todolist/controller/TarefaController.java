@@ -47,6 +47,8 @@ public class TarefaController {
         return ResponseEntity.ok(tarefaService.atualzizarStatusTarefa(id,status));
     }
 
+
+    // temos erro aqui, não deleta tarefa
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarTarefa(@PathVariable Long id){
         try {
