@@ -77,6 +77,10 @@ public class TarefaService {
             throw new ConflitoTarefaException("Já existe tarefa agendada na " +  tarefa.dataTarefa() + " " +  tarefa.horaTarefa());
         }
 
+
+        // tem qu verificar se a data e hora ja n existe algo
+        // se existir e for a que estamos querendo alterar, pod
+        // caso n seja a tarefa igual a que estamos modificando, não pode
         Tarefa tarefaAtual = tarefaRepository.findById(id).get();
         tarefaAtual.setNomeTarefa(tarefa.nomeTarefa());
         tarefaAtual.setDescricaoTarefa(tarefa.descricaoTarefa());
