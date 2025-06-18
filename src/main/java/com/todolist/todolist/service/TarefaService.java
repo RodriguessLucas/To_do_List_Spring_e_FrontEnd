@@ -37,12 +37,22 @@ public class TarefaService {
     //CRUD DAS TAREFAS
 
     //Criar
-    public Tarefa criarTarefa(RequestTarefaDTO requestTarefaDTO) {
+    public ResponseTarefaDTO criarTarefa(RequestTarefaDTO requestTarefaDTO) {
         if(tarefaRepository.existsByDataTarefaAndHoraTarefa(requestTarefaDTO.dataTarefa(), requestTarefaDTO.horaTarefa())) {
             throw new ConflitoTarefaException("Já existe tarefa agendada na " +  requestTarefaDTO.dataTarefa() + " " +  requestTarefaDTO.horaTarefa());
         }
+
         Tarefa tarefa = toEntity(requestTarefaDTO);
-        return tarefaRepository.save(tarefa);
+        tarefaRepository.save(tarefa);
+
+        return new ResponseTarefaDTO(
+                tarefa.getId(),
+                tarefa.getNomeTarefa(),
+                tarefa.getDescricaoTarefa(),
+                tarefa.isStatus(),
+                tarefa.getDataTarefa(),
+                tarefa.getHoraTarefa()
+        );
     }
 
     //Carregar tarefas do dia
@@ -90,7 +100,7 @@ public class TarefaService {
         try {
             tarefaRepository.deleteById(id);
         }
-        catch (IllegalArgumentException e){
+        catch (TarefaNotFoundException e){
             throw new TarefaNotFoundException("Tarefa com id " + id + "não foi encontrado");
         }
     }
