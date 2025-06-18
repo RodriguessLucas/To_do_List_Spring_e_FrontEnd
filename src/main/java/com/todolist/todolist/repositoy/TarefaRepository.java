@@ -4,9 +4,11 @@ import com.todolist.todolist.model.entity.Tarefa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
     List<Tarefa> findByDataTarefa(LocalDate dataTarefa);
+    boolean existsByDataTarefaAndHoraTarefa(LocalDate dataTarefa, LocalTime horaTarefa);
 
 }
