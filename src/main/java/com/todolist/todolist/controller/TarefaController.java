@@ -1,6 +1,7 @@
 package com.todolist.todolist.controller;
 
 import com.todolist.todolist.exceptions.TarefaNotFoundException;
+import com.todolist.todolist.model.dto.AtualizarTarefaStatusDTO;
 import com.todolist.todolist.model.dto.RequestTarefaDTO;
 import com.todolist.todolist.model.dto.ResponseTarefaDTO;
 import com.todolist.todolist.service.TarefaService;
@@ -37,14 +38,14 @@ public class TarefaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.criarTarefa(requestTarefaDTO));
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ResponseTarefaDTO> atualizarTarefa(@PathVariable Long id, @RequestBody RequestTarefaDTO tarefa){
         return ResponseEntity.ok(tarefaService.atualizarTarefa(id, tarefa));
     }
 
-    @PostMapping
-    public ResponseEntity<Boolean> atualizarTarefaStatus(@RequestParam Long id, @RequestParam boolean status){
-        return ResponseEntity.ok(tarefaService.atualzizarStatusTarefa(id,status));
+    @PutMapping
+    public ResponseEntity<Boolean> atualizarTarefaStatus(@RequestBody AtualizarTarefaStatusDTO status){
+        return ResponseEntity.ok(tarefaService.atualzizarStatusTarefa(status));
     }
 
 

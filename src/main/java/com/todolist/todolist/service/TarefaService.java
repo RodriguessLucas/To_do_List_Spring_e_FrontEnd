@@ -2,6 +2,7 @@ package com.todolist.todolist.service;
 
 import com.todolist.todolist.exceptions.ConflitoTarefaException;
 import com.todolist.todolist.exceptions.TarefaNotFoundException;
+import com.todolist.todolist.model.dto.AtualizarTarefaStatusDTO;
 import com.todolist.todolist.model.dto.RequestTarefaDTO;
 import com.todolist.todolist.model.dto.ResponseTarefaDTO;
 import com.todolist.todolist.model.entity.Tarefa;
@@ -73,16 +74,11 @@ public class TarefaService {
 
     //Atualizar tarefa
     public ResponseTarefaDTO atualizarTarefa(Long id, RequestTarefaDTO tarefa) {
-
         if(tarefaRepository.existsByDataTarefaAndHoraTarefa(tarefa.dataTarefa(), tarefa.horaTarefa()) &&
                 !tarefaRepository.existsByIdAndDataTarefaAndHoraTarefa(id,  tarefa.dataTarefa(), tarefa.horaTarefa())) {
             throw new ConflitoTarefaException("Já existe tarefa agendada na " +  tarefa.dataTarefa() + " " +  tarefa.horaTarefa());
         }
 
-
-        // tem qu verificar se a data e hora ja n existe algo
-        // se existir e for a que estamos querendo alterar, pod
-        // caso n seja a tarefa igual a que estamos modificando, não pode
         Tarefa tarefaAtual = tarefaRepository.findById(id).get();
         tarefaAtual.setNomeTarefa(tarefa.nomeTarefa());
         tarefaAtual.setDescricaoTarefa(tarefa.descricaoTarefa());
@@ -112,9 +108,9 @@ public class TarefaService {
     }
 
     //Atualizar status tarefa
-    public boolean atualzizarStatusTarefa(Long id, boolean status){
-        Tarefa tarefaAtual = tarefaRepository.findById(id).get();
-        tarefaAtual.setStatus(status);
+    public boolean atualzizarStatusTarefa(AtualizarTarefaStatusDTO status){
+        Tarefa tarefaAtual = tarefaRepository.findById(status.id()).orElse(null);
+        tarefaAtual.setStatus(status.status());
         tarefaRepository.save(tarefaAtual);
         return tarefaAtual.isStatus();
     }
