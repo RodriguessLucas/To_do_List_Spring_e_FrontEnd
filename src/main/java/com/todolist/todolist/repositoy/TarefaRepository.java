@@ -10,5 +10,5 @@ import java.util.List;
 public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
     List<Tarefa> findByDataTarefa(LocalDate dataTarefa);
     boolean existsByDataTarefaAndHoraTarefa(LocalDate dataTarefa, LocalTime horaTarefa);
-
+    boolean existsByIdAndDataTarefaAndHoraTarefa(Long id, LocalDate dataTarefa, LocalTime horaTarefa);
 }

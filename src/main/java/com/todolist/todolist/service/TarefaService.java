@@ -73,7 +73,9 @@ public class TarefaService {
 
     //Atualizar tarefa
     public ResponseTarefaDTO atualizarTarefa(Long id, RequestTarefaDTO tarefa) {
-        if(tarefaRepository.existsByDataTarefaAndHoraTarefa(tarefa.dataTarefa(), tarefa.horaTarefa())) {
+
+        if(tarefaRepository.existsByDataTarefaAndHoraTarefa(tarefa.dataTarefa(), tarefa.horaTarefa()) &&
+                !tarefaRepository.existsByIdAndDataTarefaAndHoraTarefa(id,  tarefa.dataTarefa(), tarefa.horaTarefa())) {
             throw new ConflitoTarefaException("Já existe tarefa agendada na " +  tarefa.dataTarefa() + " " +  tarefa.horaTarefa());
         }
 
