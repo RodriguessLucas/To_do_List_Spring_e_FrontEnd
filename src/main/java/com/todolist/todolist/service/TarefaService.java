@@ -1,6 +1,7 @@
 package com.todolist.todolist.service;
 
 import com.todolist.todolist.exceptions.ConflitoTarefaException;
+import com.todolist.todolist.exceptions.StatusTarefaException;
 import com.todolist.todolist.exceptions.TarefaNotFoundException;
 import com.todolist.todolist.model.dto.AtualizarTarefaStatusDTO;
 import com.todolist.todolist.model.dto.RequestTarefaDTO;
@@ -109,7 +110,14 @@ public class TarefaService {
 
     //Atualizar status tarefa
     public boolean atualzizarStatusTarefa(AtualizarTarefaStatusDTO status){
-        Tarefa tarefaAtual = tarefaRepository.findById(status.id()).orElse(null);
+        if(status.status().describeConstable().isEmpty() ) {
+            throw new StatusTarefaException("Não é possivel atualizar status tarefa");
+        }
+
+        var tarefaAtual = tarefaRepository.findById(status.id())
+                .orElseThrow( () -> new TarefaNotFoundException("Tarefa não encontrada!")
+                );
+
         tarefaAtual.setStatus(status.status());
         tarefaRepository.save(tarefaAtual);
         return tarefaAtual.isStatus();

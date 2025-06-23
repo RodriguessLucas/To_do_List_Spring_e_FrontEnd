@@ -67,5 +67,19 @@ public class GoblalExceptionHandle {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(StatusTarefaException.class)
+    public ResponseEntity<ErrorResponse> handleStatusTarefaException(StatusTarefaException e, WebRequest request) {
+        String caminho = request.getDescription(false).toString();
+        String metodo = request.getContextPath();
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.CONFLICT.value(),
+                e.getMessage(),
+                metodo,
+                caminho
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
 
 }
